@@ -1,0 +1,7 @@
+Bundle-Name: admin-theme-configurable-bg
+Bundle-SymbolicName: com.liferay.sales.configurableadmintheme
+Bundle-Version: 1.0.0
+-dsannotations-options: inherit
+-sources: true
+Liferay-Theme-Contributor-Type: admin-theme-configurable-bg
+Web-ContextPath: /admin-theme-configurable-bg-theme-contributor
