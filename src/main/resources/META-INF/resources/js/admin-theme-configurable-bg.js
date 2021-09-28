@@ -34,10 +34,15 @@ var showConfiguredControlPanelBackground = function(event){
 		adminthemebackgroundbody.style.background = "url(" + canvas.toDataURL("image/png")+ ")";
 
 		var setSheetOpacity = function() {
-			var sheets = document.querySelectorAll(".sheet");
-			sheets.forEach(function(sheet) {
-				sheet.style.opacity = configurableBackgroundOpacity + "%";
-			});
+			var selectors = [".sheet", ".list-group-card", ".list-group-item", ".main-content-card", 
+				".panel:not(.panel-secondary)", ".card", ".bg-white", ".contributor-container", 
+				"iframe", "table"];
+			selectors.forEach(function(selector){
+				sheets = document.querySelectorAll(selector);
+				sheets.forEach(function(sheet) {
+					sheet.style.opacity = configurableBackgroundOpacity + "%";
+				});
+			})
 		}
 		setSheetOpacity();
 		// some elements are rendered asynchronously
