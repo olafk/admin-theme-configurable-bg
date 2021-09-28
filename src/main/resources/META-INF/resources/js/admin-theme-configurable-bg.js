@@ -1,8 +1,8 @@
 var showConfiguredControlPanelBackground = function(event){
-	console.log("configurable bg firing");
+//	console.log("configurable bg firing");
 	var conf = document.querySelector("a[data-identifier=\"configurableBackground\"]");
 	if(conf == null) {
-		console.log("nothing to configure");
+//		console.log("nothing to configure");
 		return;
 	}
 	var configurableBackgroundText = conf.dataset.text;
@@ -11,7 +11,7 @@ var showConfiguredControlPanelBackground = function(event){
 	var configurableBackgroundWidth = conf.dataset.width;
 	var configurableBackgroundOpacity = conf.dataset.opacity;
 
-	console.log(configurableBackgroundText + " " + configurableBackgroundColor + " " + configurableBackgroundHeight + " " + configurableBackgroundWidth)
+//	console.log(configurableBackgroundText + " " + configurableBackgroundColor + " " + configurableBackgroundHeight + " " + configurableBackgroundWidth)
 	
 	if(configurableBackgroundWidth > 0 && Liferay.ThemeDisplay.isControlPanel()) {
 		var adminthemebackgroundbody = document.querySelector("body");
