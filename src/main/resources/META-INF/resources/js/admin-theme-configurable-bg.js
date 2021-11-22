@@ -1,8 +1,6 @@
 var showConfiguredControlPanelBackground = function(event){
-//	console.log("configurable bg firing");
-	var conf = document.querySelector("a[data-identifier=\"configurableBackground\"]");
+	var conf = document.querySelector("[data-identifier=\"configurableBackground\"]");
 	if(conf == null) {
-//		console.log("nothing to configure");
 		return;
 	}
 	var configurableBackgroundText = conf.dataset.text;
@@ -11,9 +9,7 @@ var showConfiguredControlPanelBackground = function(event){
 	var configurableBackgroundWidth = conf.dataset.width;
 	var configurableBackgroundOpacity = conf.dataset.opacity;
 
-//	console.log(configurableBackgroundText + " " + configurableBackgroundColor + " " + configurableBackgroundHeight + " " + configurableBackgroundWidth)
-	
-	if(configurableBackgroundWidth > 0 && Liferay.ThemeDisplay.isControlPanel()) {
+	if(configurableBackgroundWidth > 0) {
 		var adminthemebackgroundbody = document.querySelector("body");
 	
 		var canvas = document.createElement("canvas");
@@ -36,7 +32,7 @@ var showConfiguredControlPanelBackground = function(event){
 		var setSheetOpacity = function() {
 			var selectors = [".sheet", ".list-group-card", ".list-group-item", ".main-content-card", 
 				".panel:not(.panel-secondary)", ".card", ".bg-white", ".contributor-container", 
-				"iframe", "table"];
+				"iframe", "table", "#wrapper"];
 			selectors.forEach(function(selector){
 				sheets = document.querySelectorAll(selector);
 				sheets.forEach(function(sheet) {

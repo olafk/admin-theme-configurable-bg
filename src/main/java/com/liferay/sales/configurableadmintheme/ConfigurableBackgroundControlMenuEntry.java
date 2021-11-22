@@ -2,19 +2,20 @@ package com.liferay.sales.configurableadmintheme;
 
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.product.navigation.control.menu.BaseProductNavigationControlMenuEntry;
 import com.liferay.product.navigation.control.menu.ProductNavigationControlMenuEntry;
 import com.liferay.product.navigation.control.menu.constants.ProductNavigationControlMenuCategoryKeys;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,24 +44,15 @@ public class ConfigurableBackgroundControlMenuEntry
 	@Override
 	public boolean isShow(HttpServletRequest request) throws PortalException {
 		ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
-		return themeDisplay.getTheme().isControlPanelTheme();
+		return _backgroundConfiguration.showInControlMenu() &&
+			(themeDisplay.getTheme().isControlPanelTheme() || _backgroundConfiguration.showOnRegularPage()); 
 	}
 
 	@Override
-	public Map<String, Object> getData(HttpServletRequest httpServletRequest) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("identifier", "configurableBackground");
-		result.put("text", HtmlUtil.escapeAttribute(_backgroundConfiguration.text()));
-		result.put("color", HtmlUtil.escapeAttribute(_backgroundConfiguration.color()));
-		result.put("height", ""+_backgroundConfiguration.height());		
-		result.put("width", ""+_backgroundConfiguration.width());		
-		result.put("opacity", ""+_backgroundConfiguration.opacity());		
-		return result;
-	}
-	
-	@Override
 	public String getLabel(Locale locale) {
-		return "Configurable Background";
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+				"content.Language", locale, getClass());
+		return LanguageUtil.get(resourceBundle, "configurable-background");
 	}
 
 	@Override
@@ -73,11 +65,10 @@ public class ConfigurableBackgroundControlMenuEntry
 	}
 
 	@Override
-		public String getIcon(HttpServletRequest httpServletRequest) {
-			return "color-picker";
-		}
-	
-	
+	public String getIcon(HttpServletRequest httpServletRequest) {
+		return "color-picker";
+	}
+		
 	@Activate
 	@Modified
 	protected void activate(Map<Object, Object> properties) {
@@ -95,5 +86,4 @@ public class ConfigurableBackgroundControlMenuEntry
 	private static final Log _log = LogFactoryUtil.getLog(ConfigurableBackgroundControlMenuEntry.class);
 
 	private volatile ConfigurableAdminBackgroundConfiguration _backgroundConfiguration;
-
 }

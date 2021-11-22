@@ -11,7 +11,7 @@ import aQute.bnd.annotation.metatype.Meta;
 public interface ConfigurableAdminBackgroundConfiguration {
 
 	@Meta.AD(
-            deflt = "configurable system indicator",
+            deflt = "${version} configurable system indicator",
 			description = "configurable-admin-background-text-description",
             name = "configurable-admin-background-text-name",
             required = false
@@ -27,7 +27,7 @@ public interface ConfigurableAdminBackgroundConfiguration {
 	public String color();
 		
 	@Meta.AD(
-            deflt = "420",
+            deflt = "440",
 			description = "configurable-admin-background-width-description",
             name = "configurable-admin-background-width-name",
             required = false
@@ -35,7 +35,7 @@ public interface ConfigurableAdminBackgroundConfiguration {
 	public Integer width();
 		
 	@Meta.AD(
-            deflt = "360",
+            deflt = "150",
 			description = "configurable-admin-background-height-description",
             name = "configurable-admin-background-height-name",
             required = false
@@ -49,4 +49,20 @@ public interface ConfigurableAdminBackgroundConfiguration {
             required = false
         )
 	public Integer opacity();
+	
+	@Meta.AD(
+            deflt = "true",
+			description = "configurable-admin-background-show-in-control-menu-description",
+            name = "configurable-admin-background-show-in-control-menu-name",
+            required = false
+        )
+	public Boolean showInControlMenu();
+	
+	@Meta.AD(
+            deflt = "false",
+			description = "configurable-admin-background-show-on-regular-page-description",
+            name = "configurable-admin-background-show-on-regular-page-name",
+            required = false
+        )
+	public Boolean showOnRegularPage();
 }
