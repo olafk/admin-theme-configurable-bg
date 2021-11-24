@@ -21,7 +21,7 @@ var showConfiguredControlPanelBackground = function(event){
 		var context = canvas.getContext('2d');
 		context.fillStyle = configurableBackgroundColor;
 		context.fillRect(0, 0, canvas.width, canvas.height);
-		context.translate(0, canvas.height - fontSize);
+		context.translate(0, canvas.height - fontSize - 5 );
 		context.rotate(angle * (Math.PI / 180));
 		context.fillStyle    = 'rgba(0,0,0,0.1)';
 		context.font         = fontSize + 'px sans-serif';

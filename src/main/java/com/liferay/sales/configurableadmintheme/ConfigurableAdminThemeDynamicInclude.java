@@ -39,7 +39,7 @@ public class ConfigurableAdminThemeDynamicInclude extends BaseDynamicInclude {
 			PrintWriter printWriter = response.getWriter();
 			printWriter.print("<meta ");
 			printWriter.print("data-identifier=\"configurableBackground\" ");
-			printWriter.print("data-text=\"" + _text + "\" ");
+			printWriter.print("data-text=\"" + dxpcDetect(_text, request) + "\" ");
 			printWriter.print("data-color=\"" + _color + "\" ");
 			printWriter.print("data-height=\"" + _backgroundConfiguration.height() + "\" ");		
 			printWriter.print("data-width=\"" + _backgroundConfiguration.width() + "\" ");		
@@ -47,6 +47,24 @@ public class ConfigurableAdminThemeDynamicInclude extends BaseDynamicInclude {
 			printWriter.print("/>");
 		}
 	}
+	
+	private String dxpcDetect(String text, HttpServletRequest request) {
+		try {
+			String host = request.getHeader("Host");
+			if(host!=null && host.startsWith("webserver-lct")) {
+				String namePart = host.substring("webserver-lct".length(), host.indexOf('.'));
+				String envPart = namePart.substring(namePart.indexOf('-')+1);
+				namePart = namePart.substring(0,namePart.indexOf('-'));
+				return text.replace("${dxpcname}", namePart).replace("${dxpcenv}", envPart).trim();
+			}
+		} catch(Throwable e) {
+			// if anything goes wrong, just return what we got - dxpc detection failed.
+			// it's only string operations, nothing bad could have happened apart from 
+			// wasting a few CPU cycles.
+		}
+		return text.replace("${dxpcname}", "").replace("${dxpcenv}", "").trim();
+	}
+	
 
 	@Override
 	public void register(DynamicIncludeRegistry dynamicIncludeRegistry) {
