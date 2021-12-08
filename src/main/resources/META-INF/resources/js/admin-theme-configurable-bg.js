@@ -14,7 +14,7 @@ var showConfiguredControlPanelBackground = function(event){
 	
 		var canvas = document.createElement("canvas");
 		var fontSize = 24;
-		var angle = -10;
+		var angle = -5;
 		canvas.setAttribute('height', configurableBackgroundHeight);
 		canvas.setAttribute('width', configurableBackgroundWidth);
 

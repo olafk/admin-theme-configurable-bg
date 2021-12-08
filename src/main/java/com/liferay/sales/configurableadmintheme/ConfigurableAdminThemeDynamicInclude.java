@@ -1,6 +1,7 @@
 package com.liferay.sales.configurableadmintheme;
 
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
@@ -34,12 +35,16 @@ public class ConfigurableAdminThemeDynamicInclude extends BaseDynamicInclude {
 	public void include(HttpServletRequest request, HttpServletResponse response, String key)
 			throws IOException {
 		ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
-
+		String text = _text;
+		try {
+			text = _text.replace("${group}", HtmlUtil.escapeAttribute(themeDisplay.getScopeGroupName()));
+		} catch (PortalException e) {
+		}
 		if(themeDisplay.getTheme().isControlPanelTheme() || _backgroundConfiguration.showOnRegularPage()) {
 			PrintWriter printWriter = response.getWriter();
 			printWriter.print("<meta ");
 			printWriter.print("data-identifier=\"configurableBackground\" ");
-			printWriter.print("data-text=\"" + dxpcDetect(_text, request) + "\" ");
+			printWriter.print("data-text=\"" + dxpcDetect(text, request) + "\" ");
 			printWriter.print("data-color=\"" + _color + "\" ");
 			printWriter.print("data-height=\"" + _backgroundConfiguration.height() + "\" ");		
 			printWriter.print("data-width=\"" + _backgroundConfiguration.width() + "\" ");		
