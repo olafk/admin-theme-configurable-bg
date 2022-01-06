@@ -12,6 +12,14 @@ Find the configuration (see screenshot) under System Settings / Third Party or c
 
 Leave text configuration empty to not display any text, but just use color.
 
+New features in 1.0.3:
+
+* more detailed ${version} replacement (includes "Update" for 7.4)
+* default opacity changed from 60 to 80% for CP visibility
+* new ${group} indicator, as background can also be shown on non-CP pages since 1.0.2
+* label angled with just 5° instead of 10 - for reduced height
+* release now only built/tested on java 11 (but _should_ compile/work on 8 still)
+
 New features in 1.0.2:
 
 * Built on DXP 7.4
