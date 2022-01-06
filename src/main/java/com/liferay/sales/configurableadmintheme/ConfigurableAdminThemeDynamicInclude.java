@@ -14,6 +14,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -75,11 +76,24 @@ public class ConfigurableAdminThemeDynamicInclude extends BaseDynamicInclude {
 	public void register(DynamicIncludeRegistry dynamicIncludeRegistry) {
 		dynamicIncludeRegistry.register("/html/common/themes/top_head.jsp#pre");		
 	}
+	
 	@Activate
 	@Modified
 	protected void activate(Map<Object, Object> properties) {
 		_backgroundConfiguration = ConfigurableUtil.createConfigurable(ConfigurableAdminBackgroundConfiguration.class, properties);
-		_text = HtmlUtil.escapeAttribute(_backgroundConfiguration.text().replace("${version}", ReleaseInfo.getVersion()));
+		String version = ReleaseInfo.getVersion();
+		try {
+			// the _exact_ version (for 7.4 including update) is injected into a private static field in ReleaseInfo...
+			// This is intended to be ReleaseInfo.getVersionDisplayName() from DXP 7.4 U3 on (see LPS-144745)
+			Class<ReleaseInfo> clazz = ReleaseInfo.class;
+			Field f = clazz.getDeclaredField("_VERSION_DISPLAY_NAME");
+			f.setAccessible(true);
+			version = f.get(null).toString();
+			
+			version = version.replace(" Update ", ".U"); // shorten "Update" to "u", e.g. 7.4.13.U3 - no need for verbosity on the info
+		} catch (Exception e) {
+		}
+		_text = HtmlUtil.escapeAttribute(_backgroundConfiguration.text().replace("${version}", version));
 		_color = HtmlUtil.escapeAttribute(_backgroundConfiguration.color());
 	}
 

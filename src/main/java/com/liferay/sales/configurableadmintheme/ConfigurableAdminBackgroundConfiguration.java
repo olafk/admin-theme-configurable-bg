@@ -43,7 +43,7 @@ public interface ConfigurableAdminBackgroundConfiguration {
 	public Integer height();
 
 	@Meta.AD(
-            deflt = "60",
+            deflt = "80",
 			description = "configurable-admin-background-opacity-description",
             name = "configurable-admin-background-opacity-name",
             required = false
