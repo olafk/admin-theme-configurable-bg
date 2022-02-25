@@ -39,6 +39,7 @@ public class ConfigurableAdminThemeDynamicInclude extends BaseDynamicInclude {
 		String text = _text;
 		try {
 			text = _text.replace("${group}", HtmlUtil.escapeAttribute(themeDisplay.getScopeGroupName()));
+			text =  text.replace("${host}", HtmlUtil.escapeAttribute(""+request.getHeader("Host")));
 		} catch (PortalException e) {
 		}
 		if(themeDisplay.getTheme().isControlPanelTheme() || _backgroundConfiguration.showOnRegularPage()) {
@@ -47,9 +48,9 @@ public class ConfigurableAdminThemeDynamicInclude extends BaseDynamicInclude {
 			printWriter.print("data-identifier=\"configurableBackground\" ");
 			printWriter.print("data-text=\"" + dxpcDetect(text, request) + "\" ");
 			printWriter.print("data-color=\"" + _color + "\" ");
-			printWriter.print("data-height=\"" + _backgroundConfiguration.height() + "\" ");		
-			printWriter.print("data-width=\"" + _backgroundConfiguration.width() + "\" ");		
-			printWriter.print("data-opacity=\"" + _backgroundConfiguration.opacity() + "\" ");
+			printWriter.print("data-height=\"" + Math.max(50, _backgroundConfiguration.height()) + "\" ");		
+			printWriter.print("data-width=\"" + Math.max(50, _backgroundConfiguration.width()) + "\" ");		
+			printWriter.print("data-opacity=\"" + Math.max(60, _backgroundConfiguration.opacity()) + "\" ");
 			printWriter.print("/>");
 		}
 	}
