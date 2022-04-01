@@ -5,6 +5,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
+import com.liferay.portal.kernel.service.CompanyLocalService;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.kernel.servlet.taglib.BaseDynamicInclude;
 import com.liferay.portal.kernel.servlet.taglib.DynamicInclude;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -39,7 +41,8 @@ public class ConfigurableAdminThemeDynamicInclude extends BaseDynamicInclude {
 		String text = _text;
 		try {
 			text = _text.replace("${group}", HtmlUtil.escapeAttribute(themeDisplay.getScopeGroupName()));
-			text =  text.replace("${host}", HtmlUtil.escapeAttribute(""+request.getHeader("Host")));
+			text = text.replace("${instance}", HtmlUtil.escapeAttribute(companyLocalService.getCompany(themeDisplay.getCompanyId()).getShortName()));
+			text = text.replace("${host}", HtmlUtil.escapeAttribute(""+request.getHeader("Host")));
 		} catch (PortalException e) {
 		}
 		if(themeDisplay.getTheme().isControlPanelTheme() || _backgroundConfiguration.showOnRegularPage()) {
@@ -105,6 +108,10 @@ public class ConfigurableAdminThemeDynamicInclude extends BaseDynamicInclude {
 		// which will only be triggered in case we have a @Reference to the
 		// ConfigurationProvider
 	}
+	
+	@Reference
+	private CompanyLocalService companyLocalService;
+	
 	
 	private static final Log _log = LogFactoryUtil.getLog(ConfigurableBackgroundControlMenuEntry.class);
 

@@ -11,7 +11,7 @@ import aQute.bnd.annotation.metatype.Meta;
 public interface ConfigurableAdminBackgroundConfiguration {
 
 	@Meta.AD(
-            deflt = "${dxpcenv} ${version} ${dxpcname}",
+            deflt = "${instance} ${version} ${dxpcname}-${dxpcenv}",
 			description = "configurable-admin-background-text-description",
             name = "configurable-admin-background-text-name",
             required = false
