@@ -1,4 +1,5 @@
 var showConfiguredControlPanelBackground = function(event){
+  try {
 	var conf = document.querySelector("[data-identifier=\"configurableBackground\"]");
 	if(conf == null) {
 		return;
@@ -45,6 +46,9 @@ var showConfiguredControlPanelBackground = function(event){
 		// quick & stupid hack - good enough for this purpose
 		setTimeout(setSheetOpacity, 3000);
 	}
+  } catch(e) {
+	  console.log("ignoring " + e + " for configurable background");
+  }
 };
 
 Liferay.on("endNavigate", showConfiguredControlPanelBackground);
