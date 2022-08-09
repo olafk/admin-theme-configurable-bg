@@ -12,6 +12,17 @@ Find the configuration (see screenshot) under System Settings / Third Party or c
 
 Leave text configuration empty to not display any text, but just use color.
 
+New features in 1.0.5:
+
+* Found an edge case where a JS exception was thrown that inhibited regular UI functions. As the background is not considered essential, all exceptions are now swallowed after a single informative line on console. 
+* upon hovering, several CP items will become less transparent for easier readability (regular transition time 2s applies)
+* Compiled on Java 11, DXP U36
+
+New features in 1.0.4:
+
+* ${instance} and ${host} substitutions
+
+
 New features in 1.0.3:
 
 * more detailed ${version} replacement (includes "Update" for 7.4)
