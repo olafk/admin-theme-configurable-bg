@@ -1,4 +1,4 @@
-var showConfiguredControlPanelBackground = function(event){
+var showConfiguredControlPanelBackground = async function(event){
   try {
 	var conf = document.querySelector("[data-identifier=\"configurableBackground\"]");
 	if(conf == null) {
@@ -27,13 +27,13 @@ var showConfiguredControlPanelBackground = function(event){
 		context.fillStyle    = 'rgba(0,0,0,0.1)';
 		context.font         = fontSize + 'px sans-serif';
 		context.fillText(configurableBackgroundText, 0, fontSize);
-	
+
 		adminthemebackgroundbody.style.background = "url(" + canvas.toDataURL("image/png")+ ")";
 
 		var setSheetOpacity = function() {
 			var selectors = [".sheet", ".list-group-card", ".list-group-item", ".main-content-card", 
 				".panel:not(.panel-secondary)", ".card", ".bg-white", ".contributor-container", 
-				"iframe", "table", "#wrapper"];
+				"iframe", "table", ".data-set-content-wrapper"];
 			selectors.forEach(function(selector){
 				sheets = document.querySelectorAll(selector);
 				sheets.forEach(function(sheet) {
