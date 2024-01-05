@@ -1,10 +1,10 @@
 package com.liferay.sales.configurableadmintheme;
 
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.configuration.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.servlet.taglib.BaseDynamicInclude;
 import com.liferay.portal.kernel.servlet.taglib.DynamicInclude;
@@ -110,8 +110,7 @@ public class ConfigurableAdminThemeDynamicInclude extends BaseDynamicInclude {
 	
 	@Reference
 	private CompanyLocalService companyLocalService;
-	
-	
+		
 	private static final Log _log = LogFactoryUtil.getLog(ConfigurableBackgroundControlMenuEntry.class);
 
 	private volatile ConfigurableAdminBackgroundConfiguration _backgroundConfiguration;
