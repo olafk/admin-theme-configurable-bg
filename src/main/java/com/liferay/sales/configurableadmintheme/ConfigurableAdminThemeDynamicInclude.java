@@ -44,7 +44,13 @@ public class ConfigurableAdminThemeDynamicInclude extends BaseDynamicInclude {
 			text = text.replace("${host}", HtmlUtil.escapeAttribute(""+request.getHeader("Host")));
 		} catch (PortalException e) {
 		}
-		if(themeDisplay.getTheme().isControlPanelTheme() || _backgroundConfiguration.showOnRegularPage()) {
+		
+		boolean showAdminBackground = themeDisplay.getTheme().isControlPanelTheme() || _backgroundConfiguration.showOnRegularPage();
+		if(themeDisplay.getUser().getExpandoBridge().hasAttribute("adminBackground")) {
+			showAdminBackground &= (Boolean)(themeDisplay.getUser().getExpandoBridge().getAttribute("adminBackground"));
+		}
+
+		if(showAdminBackground) {
 			PrintWriter printWriter = response.getWriter();
 			printWriter.print("<meta ");
 			printWriter.print("data-identifier=\"configurableBackground\" ");
