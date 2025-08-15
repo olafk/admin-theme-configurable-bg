@@ -5,7 +5,9 @@ var showConfiguredControlPanelBackground = async function(event){
 		return;
 	}
 	var configurableBackgroundText = conf.dataset.text;
-	var configurableBackgroundColor = conf.dataset.color;
+	var configurableBackgroundColor = conf.dataset.bodybgcolor;
+	var configurableControlMenuColorDark = conf.dataset.controlmenucolordark;
+	var configurableControlMenuColorLight = conf.dataset.controlmenucolorlight;
 	var configurableBackgroundHeight = conf.dataset.height;
 	var configurableBackgroundWidth = conf.dataset.width;
 	var configurableBackgroundOpacity = conf.dataset.opacity;
@@ -20,16 +22,47 @@ var showConfiguredControlPanelBackground = async function(event){
 		canvas.setAttribute('width', configurableBackgroundWidth);
 
 		var context = canvas.getContext('2d');
-		context.fillStyle = configurableBackgroundColor;
+		if(configurableBackgroundColor != null) {
+			context.fillStyle = configurableBackgroundColor;
+		}
 		context.fillRect(0, 0, canvas.width, canvas.height);
 		context.translate(0, canvas.height - fontSize - 5 );
 		context.rotate(angle * (Math.PI / 180));
-		context.fillStyle    = 'rgba(0,0,0,0.1)';
+		context.fillStyle    = 'rgba(0,0,0,0.15)';
 		context.font         = fontSize + 'px sans-serif';
 		context.fillText(configurableBackgroundText, 0, fontSize);
 
 		adminthemebackgroundbody.style.background = "url(" + canvas.toDataURL("image/png")+ ")";
 
+		var colorizedArea;
+		if(configurableControlMenuColorLight != null) {
+			colorizedArea = document.querySelector(".control-menu-level-1-light");
+			if(colorizedArea != null) {
+				colorizedArea.style.backgroundColor = configurableControlMenuColorLight;
+			}
+//			colorizedArea = document.querySelector(".management-bar-light");
+//			if(colorizedArea != null) {
+//				colorizedArea.style.backgroundColor = configurableControlMenuColorLight;
+//			}
+		}
+		if(configurableControlMenuColorDark != null) {
+			colorizedArea = document.querySelector(".control-menu-level-1-dark");
+			if(colorizedArea != null) {
+				colorizedArea.style.backgroundColor = configurableControlMenuColorDark;
+			}
+			colorizedArea = document.querySelector("#_com_liferay_product_navigation_product_menu_web_portlet_ProductMenuPortlet_site_administrationHeading");
+			if(colorizedArea != null) {
+				colorizedArea.style.backgroundColor = configurableControlMenuColorDark;
+			}
+			colorizedArea = document.querySelector("#p_p_id_com_liferay_product_navigation_product_menu_web_portlet_ProductMenuPortlet_ .sidebar-header");
+			if(colorizedArea != null) {
+				colorizedArea.style.backgroundColor = configurableControlMenuColorDark;
+			}
+//			colorizedArea = document.querySelector(".management-bar-dark");
+//			if(colorizedArea != null) {
+//				colorizedArea.style.backgroundColor = configurableControlMenuColorDark;
+//			}
+		}
 		var setSheetOpacity = function() {
 			var selectors = [".sheet", ".list-group-card", ".list-group-item", ".main-content-card", 
 				".panel:not(.panel-secondary)", ".card", ".bg-white", ".contributor-container", 

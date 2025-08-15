@@ -1,9 +1,15 @@
-package com.liferay.sales.configurableadmintheme;
+package de.olafkock.liferay.configurableadminbackground;
+
+import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
 import aQute.bnd.annotation.metatype.Meta;
 
+@ExtendedObjectClassDefinition(
+		category = "look-and-feel",
+		scope = ExtendedObjectClassDefinition.Scope.GROUP
+		)
 @Meta.OCD(
-		id = "com.liferay.sales.configurableadmintheme.ConfigurableAdminBackgroundConfiguration"
+		id = "de.olafkock.liferay.configurableadminbackground.ConfigurableAdminBackgroundConfiguration"
 	    , localization = "content/Language"
 	    , name = "configurable-admin-background-name"
 	    , description = "configurable-admin-background-description"
@@ -11,7 +17,7 @@ import aQute.bnd.annotation.metatype.Meta;
 public interface ConfigurableAdminBackgroundConfiguration {
 
 	@Meta.AD(
-            deflt = "${instance} ${version} ${dxpcname}-${dxpcenv}",
+            deflt = "${host} ${instance} ${version} ${group}",
 			description = "configurable-admin-background-text-description",
             name = "configurable-admin-background-text-name",
             required = false
@@ -20,14 +26,30 @@ public interface ConfigurableAdminBackgroundConfiguration {
 	
 	@Meta.AD(
             deflt = "#eeeeee",
-			description = "configurable-admin-background-color-description",
-            name = "configurable-admin-background-color-name",
+			description = "configurable-admin-background-bodybgcolor-description",
+            name = "configurable-admin-background-bodybgcolor-name",
             required = false
         )
-	public String color();
+	public String bodyBgColor();
+	
+	@Meta.AD(
+            deflt = "",
+			description = "configurable-admin-background-controlmenucolordark-description",
+            name = "configurable-admin-background-controlmenucolordark-name",
+            required = false
+        )
+	public String controlMenuColorDark();
+	
+	@Meta.AD(
+            deflt = "", 
+			description = "configurable-admin-background-controlmenucolorlight-description",
+            name = "configurable-admin-background-controlmenucolorlight-name",
+            required = false
+        )
+	public String controlMenuColorLight();
 		
 	@Meta.AD(
-            deflt = "440",
+            deflt = "500",
 			description = "configurable-admin-background-width-description",
             name = "configurable-admin-background-width-name",
             required = false
@@ -49,14 +71,6 @@ public interface ConfigurableAdminBackgroundConfiguration {
             required = false
         )
 	public Integer opacity();
-	
-	@Meta.AD(
-            deflt = "true",
-			description = "configurable-admin-background-show-in-control-menu-description",
-            name = "configurable-admin-background-show-in-control-menu-name",
-            required = false
-        )
-	public Boolean showInControlMenu();
 	
 	@Meta.AD(
             deflt = "false",

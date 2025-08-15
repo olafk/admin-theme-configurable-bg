@@ -1,6 +1,6 @@
 Bundle-Name: admin-theme-configurable-bg
-Bundle-SymbolicName: com.liferay.sales.configurableadmintheme
-Bundle-Version: 1.0.6-SNAPSHOT
+Bundle-SymbolicName: de.olafkock.liferay.configurableadminbackground
+Bundle-Version: 2.0.0
 -dsannotations-options: inherit
 -sources: true
 Liferay-Theme-Contributor-Type: admin-theme-configurable-bg
